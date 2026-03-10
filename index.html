@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>班宠乐园 - 让班级管理变成一场宠物冒险</title>
+  <meta name="description" content="班宠乐园是一款面向小学老师的游戏化班级管理工具。通过虚拟宠物养成激励学生，50种萌宠、10级成长、5套主题，让课堂管理变得有趣又高效。">
+  <meta name="keywords" content="班级管理,宠物养成,小学老师,游戏化教学,班宠乐园">
+  <meta property="og:title" content="班宠乐园 - 让班级管理变成一场宠物冒险">
+  <meta property="og:description" content="50种萌宠 + 10级成长 + 5套主题 = 孩子们每天都期待的课堂">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://learnstar.cn">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐾</text></svg>">
+  <link rel="stylesheet" href="dist/style.css">
+</head>
+<body class="bg-white">
+
+  <!-- ========== 背景装饰爪印 ========== -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+    <svg class="absolute animate-paw" style="top:8%;left:5%;width:40px;opacity:0.04;color:#10B981;--paw-base:-12deg" viewBox="0 0 64 64" fill="currentColor"><ellipse cx="32" cy="42" rx="14" ry="12"/><ellipse cx="16" cy="24" rx="7" ry="9" transform="rotate(-15 16 24)"/><ellipse cx="48" cy="24" rx="7" ry="9" transform="rotate(15 48 24)"/><ellipse cx="22" cy="14" rx="6" ry="8" transform="rotate(-5 22 14)"/><ellipse cx="42" cy="14" rx="6" ry="8" transform="rotate(5 42 14)"/></svg>
+    <svg class="absolute animate-paw" style="top:22%;right:8%;width:32px;opacity:0.035;color:#10B981;--paw-base:20deg" viewBox="0 0 64 64" fill="currentColor"><ellipse cx="32" cy="42" rx="14" ry="12"/><ellipse cx="16" cy="24" rx="7" ry="9" transform="rotate(-15 16 24)"/><ellipse cx="48" cy="24" rx="7" ry="9" transform="rotate(15 48 24)"/><ellipse cx="22" cy="14" rx="6" ry="8" transform="rotate(-5 22 14)"/><ellipse cx="42" cy="14" rx="6" ry="8" transform="rotate(5 42 14)"/></svg>
+    <svg class="absolute animate-paw" style="top:45%;left:3%;width:28px;opacity:0.03;color:#10B981;--paw-base:35deg" viewBox="0 0 64 64" fill="currentColor"><ellipse cx="32" cy="42" rx="14" ry="12"/><ellipse cx="16" cy="24" rx="7" ry="9" transform="rotate(-15 16 24)"/><ellipse cx="48" cy="24" rx="7" ry="9" transform="rotate(15 48 24)"/><ellipse cx="22" cy="14" rx="6" ry="8" transform="rotate(-5 22 14)"/><ellipse cx="42" cy="14" rx="6" ry="8" transform="rotate(5 42 14)"/></svg>
+    <svg class="absolute animate-paw" style="top:65%;right:4%;width:36px;opacity:0.04;color:#10B981;--paw-base:-25deg" viewBox="0 0 64 64" fill="currentColor"><ellipse cx="32" cy="42" rx="14" ry="12"/><ellipse cx="16" cy="24" rx="7" ry="9" transform="rotate(-15 16 24)"/><ellipse cx="48" cy="24" rx="7" ry="9" transform="rotate(15 48 24)"/><ellipse cx="22" cy="14" rx="6" ry="8" transform="rotate(-5 22 14)"/><ellipse cx="42" cy="14" rx="6" ry="8" transform="rotate(5 42 14)"/></svg>
+    <svg class="absolute animate-paw" style="top:82%;left:7%;width:30px;opacity:0.03;color:#10B981;--paw-base:8deg" viewBox="0 0 64 64" fill="currentColor"><ellipse cx="32" cy="42" rx="14" ry="12"/><ellipse cx="16" cy="24" rx="7" ry="9" transform="rotate(-15 16 24)"/><ellipse cx="48" cy="24" rx="7" ry="9" transform="rotate(15 48 24)"/><ellipse cx="22" cy="14" rx="6" ry="8" transform="rotate(-5 22 14)"/><ellipse cx="42" cy="14" rx="6" ry="8" transform="rotate(5 42 14)"/></svg>
+  </div>
+
+  <!-- ========== 导航栏 ========== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background:rgba(255,255,255,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(226,232,240,0.6)">
+    <div class="max-w-[1200px] mx-auto px-5 h-16 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2.5 no-underline">
+        <svg class="w-8 h-8 text-emerald-500" style="transform:rotate(12deg)" viewBox="0 0 64 64" fill="currentColor"><ellipse cx="32" cy="42" rx="14" ry="12"/><ellipse cx="16" cy="24" rx="7" ry="9" transform="rotate(-15 16 24)"/><ellipse cx="48" cy="24" rx="7" ry="9" transform="rotate(15 48 24)"/><ellipse cx="22" cy="14" rx="6" ry="8" transform="rotate(-5 22 14)"/><ellipse cx="42" cy="14" rx="6" ry="8" transform="rotate(5 42 14)"/></svg>
+        <span class="font-display text-[22px] text-slate-800">班宠乐园</span>
+      </a>
+      <!-- 导航链接 -->
+      <div class="flex items-center gap-6">
+        <a href="#features" class="hidden md:inline-block text-slate-500 hover:text-emerald-500 transition-colors text-[15px] no-underline">功能介绍</a>
+        <a href="#scenes" class="hidden md:inline-block text-slate-500 hover:text-emerald-500 transition-colors text-[15px] no-underline">使用场景</a>
+        <a href="#cta" class="inline-flex items-center px-5 py-2 text-white text-sm font-bold rounded-full transition-all hover:-translate-y-0.5 active:scale-[0.97] no-underline" style="background:linear-gradient(135deg,#10B981,#059669);box-shadow:0 2px 10px rgba(16,185,129,0.35)">立即体验</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== Hero 首屏 ========== -->
+  <section class="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden" style="background:linear-gradient(160deg,#f0fdf4 0%,#e0f2fe 35%,#fef9c3 65%,#fce7f3 100%)">
+    <!-- 背景光晕 orbs -->
+    <div class="absolute top-[10%] left-[15%] w-[400px] h-[400px] rounded-full" style="background:radial-gradient(circle,rgba(52,211,153,0.25) 0%,transparent 70%);filter:blur(60px)"></div>
+    <div class="absolute top-[30%] right-[10%] w-[350px] h-[350px] rounded-full" style="background:radial-gradient(circle,rgba(147,197,253,0.25) 0%,transparent 70%);filter:blur(60px)"></div>
+    <div class="absolute bottom-[10%] left-[40%] w-[300px] h-[300px] rounded-full" style="background:radial-gradient(circle,rgba(251,191,36,0.2) 0%,transparent 70%);filter:blur(60px)"></div>
+    <div class="absolute bottom-[20%] right-[25%] w-[250px] h-[250px] rounded-full" style="background:radial-gradient(circle,rgba(236,72,153,0.15) 0%,transparent 70%);filter:blur(60px)"></div>
+
+    <div class="relative z-10 max-w-[1200px] mx-auto px-5 text-center">
+      <!-- 胶囊标签 -->
+      <div class="fade-up inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-semibold mb-6" style="background:#D1FAE5;color:#047857">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f43e.svg" alt="🐾" class="w-4 h-4">
+        小学老师的班级管理新玩法
+      </div>
+
+      <!-- 主标题 -->
+      <h1 class="fade-up font-display text-[clamp(32px,6vw,52px)] leading-[1.2] text-slate-800 mb-5">
+        让班级管理<br>
+        变成一场<span class="relative inline-block text-emerald-500">宠物冒险
+          <svg class="absolute -bottom-1 left-0 w-full h-3 text-emerald-500/40" viewBox="0 0 200 12" preserveAspectRatio="none"><path d="M2,8 Q30,2 50,7 T100,6 T150,8 T198,5" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+        </span>
+      </h1>
+
+      <!-- 副标题 -->
+      <p class="fade-up text-slate-500 text-[clamp(15px,2vw,18px)] mb-8 max-w-xl mx-auto">
+        50种萌宠 + 10级成长 + 5套主题 = 孩子们每天都期待的课堂
+      </p>
+
+      <!-- CTA 按钮 -->
+      <div class="fade-up mb-12 md:mb-16">
+        <a href="#cta" class="inline-flex items-center px-8 py-3.5 text-white font-bold text-base rounded-full hover:-translate-y-0.5 active:scale-[0.97] transition-all no-underline" style="background:linear-gradient(135deg,#10B981,#059669);box-shadow:0 4px 20px rgba(16,185,129,0.4),0 2px 6px rgba(0,0,0,0.08)">
+          立即体验
+        </a>
+      </div>
+
+      <!-- 产品截图区域 -->
+      <!-- 宠物定位层：比截图更宽，宠物定位在这个外层 -->
+      <div class="fade-up relative max-w-[1100px] mx-auto">
+        <!-- 浮动宠物 - 左上柴犬 -->
+        <img src="images/pets/shiba.webp" alt="柴犬" class="absolute w-[70px] md:w-[90px] animate-float z-20 drop-shadow-xl top-0 left-0 md:left-4" style="--rotate:8deg">
+        <!-- 浮动宠物 - 右下小白兔 -->
+        <img src="images/pets/rabbit.webp" alt="小白兔" class="absolute w-[60px] md:w-[80px] animate-float-delayed z-20 drop-shadow-xl bottom-8 right-0 md:right-4" style="--rotate:-5deg">
+        <!-- 浮动宠物 - 左下橘猫 -->
+        <img src="images/pets/orange-cat-school.webp" alt="橘猫" class="hidden md:block absolute w-[80px] md:w-[90px] animate-float-delayed-2 z-20 drop-shadow-xl bottom-4 left-2 md:left-6" style="--rotate:3deg">
+
+        <!-- 截图容器：居中，比外层窄 -->
+        <div class="max-w-[900px] mx-auto">
+        <!-- 浏览器框 + 截图 -->
+        <div class="relative bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200/60">
+          <!-- 浏览器顶栏 -->
+          <div class="flex items-center gap-2 px-4 py-2.5 bg-slate-50 border-b border-slate-100">
+            <div class="flex gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-red-400"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+              <span class="w-3 h-3 rounded-full bg-green-400"></span>
+            </div>
+            <div class="flex-1 mx-2">
+              <div class="bg-white rounded-md px-3 py-1 text-xs text-slate-400 text-center border border-slate-100">pet.learnstar.cn</div>
+            </div>
+          </div>
+          <!-- 真实产品截图 -->
+          <img src="images/screenshots/hero.jpg" alt="班宠乐园产品界面" class="w-full">
+        </div>
+        </div><!-- 关闭截图容器 -->
+      </div><!-- 关闭宠物定位层 -->
+    </div>
+
+    <!-- 波浪分隔 -->
+    <div class="absolute bottom-0 left-0 right-0 text-white">
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" class="w-full h-[40px] md:h-[60px]" fill="currentColor"><path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z"/></svg>
+    </div>
+  </section>
+
+  <!-- ========== 痛点共鸣区 ========== -->
+  <section class="py-16 md:py-24 relative z-10" style="background:#FFFDF7">
+    <div class="max-w-[720px] mx-auto px-5">
+      <!-- 小标签 -->
+      <p class="fade-up text-center text-slate-400 text-sm mb-8">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4ad.svg" alt="💭" class="w-4 h-4 inline-block align-text-bottom mr-1">
+        这些困扰，你是不是也有？
+      </p>
+
+      <!-- 内心独白 -->
+      <div class="fade-up space-y-5 pl-6 mb-10" style="border-left:4px solid transparent;border-image:linear-gradient(180deg,#10B981,#3B82F6,#F59E0B,#EC4899) 1">
+        <p class="text-slate-500 text-base md:text-lg leading-relaxed">"小红花贴纸用了一学期，孩子们已经<strong class="text-red-500">不感兴趣</strong>了……"</p>
+        <p class="text-slate-500 text-base md:text-lg leading-relaxed">"每次表扬只靠口头说，过两天学生就<strong class="text-red-500">忘了</strong>……"</p>
+        <p class="text-slate-500 text-base md:text-lg leading-relaxed">"想搞积分制，但 <strong class="text-red-500">Excel 记录太麻烦</strong>了……"</p>
+        <p class="text-slate-500 text-base md:text-lg leading-relaxed">"有没有<strong class="text-emerald-500">更有趣</strong>的激励方式？"</p>
+      </div>
+
+      <!-- 转折 -->
+      <p class="fade-up text-center text-slate-800 text-lg md:text-xl font-bold mb-6">
+        如果有一个工具，能让孩子<span class="text-emerald-500">自发地想要表现好</span>呢？
+      </p>
+
+      <!-- 手绘箭头 -->
+      <div class="fade-up text-center">
+        <svg class="w-6 h-10 mx-auto text-emerald-500/40" viewBox="0 0 24 40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <path d="M12,2 L12,34 M5,27 L12,35 L19,27"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 核心功能展示 ========== -->
+  <div id="features">
+
+    <!-- 功能一：宠物养成 - 左图右文 -->
+    <section class="py-16 md:py-24 relative overflow-hidden" style="background:linear-gradient(180deg,#ECFDF5 0%,#F0FFF4 100%)">
+      <div class="max-w-[1100px] mx-auto px-5">
+        <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+          <!-- 左：宠物卡片 -->
+          <div class="fade-up w-full md:w-[55%]">
+            <div class="rounded-3xl p-6 md:p-10 shadow-lg relative overflow-hidden border border-emerald-100" style="background:linear-gradient(145deg,#ecfdf5 0%,#f0fdf4 30%,#ffffff 100%)">
+              <!-- 顶部彩条 -->
+              <div class="absolute top-0 left-0 right-0 h-1.5" style="background:linear-gradient(90deg,#10B981,#06B6D4,#8B5CF6)"></div>
+              <div class="flex flex-col items-center">
+                <span class="font-num font-bold text-emerald-500 text-sm px-3 py-0.5 bg-emerald-50 rounded-full mb-3">Lv.7</span>
+                <img src="images/pets/shiba.webp" alt="柴犬" class="w-28 h-28 md:w-36 md:h-36 mb-4 drop-shadow-md">
+                <div class="text-center mb-3">
+                  <span class="text-slate-800 font-bold">米粒大侠</span>
+                </div>
+                <!-- 进度条 -->
+                <div class="w-full max-w-[240px] mb-3">
+                  <div class="flex justify-between text-xs text-slate-400 mb-1">
+                    <span>本级进度</span>
+                    <span class="font-num">12/15</span>
+                  </div>
+                  <div class="w-full h-2.5 bg-emerald-100 rounded-full">
+                    <div class="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full" style="width:80%"></div>
+                  </div>
+                </div>
+                <!-- 食物和徽章 -->
+                <div class="flex gap-4 text-sm">
+                  <span class="flex items-center gap-1">
+                    <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f356.svg" alt="🍖" class="w-5 h-5">
+                    <span class="font-num font-bold text-slate-700">65</span>
+                  </span>
+                  <span class="flex items-center gap-1">
+                    <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3c6.svg" alt="🏆" class="w-5 h-5">
+                    <span class="font-num font-bold text-slate-700">3</span>
+                  </span>
+                </div>
+              </div>
+              <!-- 装饰 emoji -->
+              <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f356.svg" alt="" class="absolute top-4 right-4 w-6 h-6 opacity-20" aria-hidden="true">
+              <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2b50.svg" alt="" class="absolute bottom-4 left-4 w-5 h-5 opacity-15" aria-hidden="true">
+            </div>
+          </div>
+          <!-- 右：文字 -->
+          <div class="fade-up w-full md:w-[45%]">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-4" style="background:#D1FAE5;color:#047857">
+              <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f43e.svg" alt="🐾" class="w-3.5 h-3.5"> 核心玩法
+            </span>
+            <h2 class="font-display text-[clamp(24px,4vw,32px)] text-slate-800 mb-4">50 种萌宠，10 级成长</h2>
+            <p class="text-slate-500 leading-relaxed mb-6">
+              每个学生领养一只虚拟宠物。做作业、认真听讲、帮助同学……每次好的表现都能让宠物获得食物
+              <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f356.svg" alt="🍖" class="w-4 h-4 inline-block align-text-bottom">，
+              食物积累让宠物从 Lv.1 一路升级到 Lv.10。满级后收集徽章
+              <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3c6.svg" alt="🏆" class="w-4 h-4 inline-block align-text-bottom">，
+              用徽章兑换真实奖励。
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 rounded-xl text-sm text-emerald-700">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f436.svg" alt="🐕" class="w-4 h-4"> 50种宠物品种
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 rounded-xl text-sm text-blue-700">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4c8.svg" alt="📈" class="w-4 h-4"> 10级成长体系
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 rounded-xl text-sm text-amber-700">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3c6.svg" alt="🏆" class="w-4 h-4"> 徽章兑换奖励
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 功能二：打卡评分 - 右图左文（镜像） -->
+    <section class="py-16 md:py-24 relative overflow-hidden" style="background:#FFFDF7">
+      <div class="max-w-[1100px] mx-auto px-5">
+        <div class="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-16">
+          <!-- 左：文字 -->
+          <div class="fade-up w-full md:w-[45%]">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-4" style="background:#FEF3C7;color:#92400E">
+              <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2b50.svg" alt="⭐" class="w-3.5 h-3.5"> 一点就评分
+            </span>
+            <h2 class="font-display text-[clamp(24px,4vw,32px)] text-slate-800 mb-4">告别 Excel，3 秒完成评分</h2>
+            <p class="text-slate-500 leading-relaxed mb-6">
+              点击学生卡片，选择评分项，完成。就这么简单。20 个加分项覆盖德智体美劳五育，12 个扣分项从轻到重。支持批量操作——筛选分组后一键给整组评分。
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 rounded-xl text-sm text-amber-700">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/270b.svg" alt="✋" class="w-4 h-4"> 一键评分
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 rounded-xl text-sm text-blue-700">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f465.svg" alt="👥" class="w-4 h-4"> 批量操作
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-purple-50 rounded-xl text-sm text-purple-700">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3f7.svg" alt="🏷️" class="w-4 h-4"> 分组管理
+              </span>
+            </div>
+          </div>
+          <!-- 右：评分清单 -->
+          <div class="fade-up w-full md:w-[55%]">
+            <div class="rounded-3xl p-5 md:p-8 shadow-lg border border-amber-100 relative overflow-hidden" style="background:linear-gradient(145deg,#FFFBEB 0%,#FEF3C7 25%,#ffffff 100%)">
+              <!-- 顶部彩条 -->
+              <div class="absolute top-0 left-0 right-0 h-1.5" style="background:linear-gradient(90deg,#F59E0B,#F97316,#EF4444)"></div>
+              <h3 class="text-slate-700 font-bold text-sm mb-4 flex items-center gap-2">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2b50.svg" alt="⭐" class="w-4 h-4"> 评分项
+              </h3>
+              <div class="space-y-2.5">
+                <!-- 已勾选 -->
+                <div class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-emerald-50 border border-emerald-200">
+                  <div class="w-5 h-5 rounded-md bg-emerald-500 flex-shrink-0 flex items-center justify-center"><svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+                  <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4d6.svg" alt="📖" class="w-4 h-4">
+                  <span class="text-sm text-slate-700 font-medium flex-1">早读打卡</span>
+                  <span class="text-emerald-600 text-xs font-bold font-num">+1 <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f356.svg" alt="🍖" class="w-3.5 h-3.5 inline-block align-text-bottom"></span>
+                </div>
+                <div class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-emerald-50 border border-emerald-200">
+                  <div class="w-5 h-5 rounded-md bg-emerald-500 flex-shrink-0 flex items-center justify-center"><svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+                  <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/270b.svg" alt="✋" class="w-4 h-4">
+                  <span class="text-sm text-slate-700 font-medium flex-1">积极发言</span>
+                  <span class="text-emerald-600 text-xs font-bold font-num">+1 <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f356.svg" alt="🍖" class="w-3.5 h-3.5 inline-block align-text-bottom"></span>
+                </div>
+                <!-- 未勾选 -->
+                <div class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white border border-slate-200">
+                  <div class="w-5 h-5 rounded-md border-2 border-slate-300 flex-shrink-0"></div>
+                  <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4dd.svg" alt="📝" class="w-4 h-4 opacity-60">
+                  <span class="text-sm text-slate-400 flex-1">背诵课文</span>
+                  <span class="text-slate-300 text-xs font-num">+2 <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f356.svg" alt="🍖" class="w-3.5 h-3.5 inline-block align-text-bottom opacity-40"></span>
+                </div>
+                <div class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white border border-slate-200">
+                  <div class="w-5 h-5 rounded-md border-2 border-slate-300 flex-shrink-0"></div>
+                  <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2b50.svg" alt="⭐" class="w-4 h-4 opacity-60">
+                  <span class="text-sm text-slate-400 flex-1">作业优秀</span>
+                  <span class="text-slate-300 text-xs font-num">+3 <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f356.svg" alt="🍖" class="w-3.5 h-3.5 inline-block align-text-bottom opacity-40"></span>
+                </div>
+                <div class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white border border-slate-200">
+                  <div class="w-5 h-5 rounded-md border-2 border-slate-300 flex-shrink-0"></div>
+                  <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f91d.svg" alt="🤝" class="w-4 h-4 opacity-60">
+                  <span class="text-sm text-slate-400 flex-1">帮助同学</span>
+                  <span class="text-slate-300 text-xs font-num">+2 <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f356.svg" alt="🍖" class="w-3.5 h-3.5 inline-block align-text-bottom opacity-40"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 功能三：礼物兑换 + 光荣榜 - 双卡并排 -->
+    <section class="py-16 md:py-24 relative overflow-hidden" style="background:linear-gradient(135deg,#FFF0F6 0%,#FEF3C7 50%,#F0FDF4 100%)">
+      <div class="max-w-[1100px] mx-auto px-5">
+        <div class="fade-up grid md:grid-cols-2 gap-6 md:gap-8">
+          <!-- 礼物兑换卡 -->
+          <div class="rounded-3xl p-6 md:p-8 shadow-md hover:shadow-lg hover:-translate-y-1 transition-all relative overflow-hidden border border-pink-100" style="background:linear-gradient(145deg,#FFF1F2 0%,#FCE7F3 20%,#ffffff 100%)">
+            <!-- 顶部彩条 -->
+            <div class="absolute top-0 left-0 right-0 h-1.5" style="background:linear-gradient(90deg,#EC4899,#A855F7,#6366F1)"></div>
+            <h3 class="font-display text-xl text-slate-800 mb-5 flex items-center gap-2">
+              <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f381.svg" alt="🎁" class="w-6 h-6"> 礼物兑换
+            </h3>
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div class="rounded-xl p-3 text-center" style="background:#FFF1F2">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2b50.svg" alt="⭐" class="w-8 h-8 mx-auto mb-1.5">
+                <div class="text-xs font-medium text-slate-700">精美贴纸</div>
+                <div class="text-[11px] text-slate-400 mt-0.5 font-num">🏆×1</div>
+              </div>
+              <div class="rounded-xl p-3 text-center" style="background:#F3F0FF">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4cb.svg" alt="📋" class="w-8 h-8 mx-auto mb-1.5">
+                <div class="text-xs font-medium text-slate-700">免作业卡</div>
+                <div class="text-[11px] text-slate-400 mt-0.5 font-num">🏆×3</div>
+              </div>
+              <div class="rounded-xl p-3 text-center" style="background:#EFF6FF">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3ac.svg" alt="🎬" class="w-8 h-8 mx-auto mb-1.5">
+                <div class="text-xs font-medium text-slate-700">电影时间</div>
+                <div class="text-[11px] text-slate-400 mt-0.5 font-num">🏆×5</div>
+              </div>
+              <div class="rounded-xl p-3 text-center" style="background:#FFFBEB">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f451.svg" alt="👑" class="w-8 h-8 mx-auto mb-1.5">
+                <div class="text-xs font-medium text-slate-700">小组长体验</div>
+                <div class="text-[11px] text-slate-400 mt-0.5 font-num">🏆×5</div>
+              </div>
+            </div>
+            <p class="text-sm text-slate-400 text-center">徽章是辛苦赚来的，花起来才更有成就感</p>
+          </div>
+
+          <!-- 光荣榜卡 -->
+          <div class="rounded-3xl p-6 md:p-8 shadow-md hover:shadow-lg hover:-translate-y-1 transition-all relative overflow-hidden border border-amber-100" style="background:linear-gradient(145deg,#FFFBEB 0%,#FEF3C7 20%,#ffffff 100%)">
+            <!-- 顶部彩条 -->
+            <div class="absolute top-0 left-0 right-0 h-1.5" style="background:linear-gradient(90deg,#F59E0B,#EAB308,#F97316)"></div>
+            <h3 class="font-display text-xl text-slate-800 mb-5 flex items-center gap-2">
+              <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3c6.svg" alt="🏆" class="w-6 h-6"> 光荣榜
+            </h3>
+            <!-- 领奖台 -->
+            <div class="flex items-end justify-center gap-3 mb-4 pt-4">
+              <!-- 第2名 - 布偶猫 -->
+              <div class="text-center">
+                <img src="images/pets/ragdoll.webp" alt="" class="w-12 h-12 mx-auto mb-1">
+                <div class="text-xs font-bold text-slate-600 mb-1">小丽</div>
+                <div class="w-16 h-16 rounded-t-lg flex items-center justify-center font-num font-bold text-white text-lg" style="background:linear-gradient(180deg,#A3BFFA,#7C9CF5)">2</div>
+              </div>
+              <!-- 第1名 - 柯基 -->
+              <div class="text-center">
+                <img src="images/pets/corgi.webp" alt="" class="w-14 h-14 mx-auto mb-1">
+                <div class="text-xs font-bold text-slate-600 mb-1">小刚</div>
+                <div class="w-16 h-24 rounded-t-lg flex items-center justify-center font-num font-bold text-white text-xl" style="background:linear-gradient(180deg,#FCD34D,#F59E0B)">1</div>
+              </div>
+              <!-- 第3名 - 仓鼠 -->
+              <div class="text-center">
+                <img src="images/pets/hamster.webp" alt="" class="w-10 h-10 mx-auto mb-1">
+                <div class="text-xs font-bold text-slate-600 mb-1">小涵</div>
+                <div class="w-16 h-12 rounded-t-lg flex items-center justify-center font-num font-bold text-white text-lg" style="background:linear-gradient(180deg,#FDBA74,#F97316)">3</div>
+              </div>
+            </div>
+            <p class="text-sm text-slate-400 text-center">每个孩子都值得被看见</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 功能四：工具箱 - 3x2 网格 -->
+    <section class="py-16 md:py-24 relative overflow-hidden" style="background:linear-gradient(180deg,#ffffff 0%,#F5F3FF 100%)">
+      <div class="max-w-[1100px] mx-auto px-5">
+        <div class="text-center mb-10">
+          <span class="fade-up inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-3" style="background:#E0E7FF;color:#3730A3">
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9f0.svg" alt="🧰" class="w-3.5 h-3.5"> 教学工具
+          </span>
+          <h2 class="fade-up font-display text-[clamp(24px,4vw,32px)] text-slate-800">6 个实用工具，让课堂更有趣</h2>
+        </div>
+        <div class="fade-up grid grid-cols-2 md:grid-cols-3 gap-4">
+          <!-- 随机点名 -->
+          <div class="rounded-2xl p-5 text-center hover:-translate-y-1 hover:shadow-lg transition-all cursor-default border-t-[3px] border-blue-400" style="background:#EFF6FF">
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3b2.svg" alt="🎲" class="w-12 h-12 mx-auto mb-3">
+            <div class="font-bold text-slate-700 mb-1">随机点名</div>
+            <div class="text-xs text-slate-400">公平点名，告别"总叫那几个"</div>
+          </div>
+          <!-- 倒计时 -->
+          <div class="rounded-2xl p-5 text-center hover:-translate-y-1 hover:shadow-lg transition-all cursor-default border-t-[3px] border-amber-400" style="background:#FEF3C7">
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/23f1.svg" alt="⏱️" class="w-12 h-12 mx-auto mb-3">
+            <div class="font-bold text-slate-700 mb-1">倒计时</div>
+            <div class="text-xs text-slate-400">限时任务，紧迫感拉满</div>
+          </div>
+          <!-- 幸运转盘 -->
+          <div class="rounded-2xl p-5 text-center hover:-translate-y-1 hover:shadow-lg transition-all cursor-default border-t-[3px] border-pink-400" style="background:#FDF2F8">
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3a1.svg" alt="🎡" class="w-12 h-12 mx-auto mb-3">
+            <div class="font-bold text-slate-700 mb-1">幸运转盘</div>
+            <div class="text-xs text-slate-400">12 个选项自定义，课堂游戏化</div>
+          </div>
+          <!-- 正计时 -->
+          <div class="rounded-2xl p-5 text-center hover:-translate-y-1 hover:shadow-lg transition-all cursor-default border-t-[3px] border-emerald-400" style="background:#ECFDF5">
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/23f2.svg" alt="⏲️" class="w-12 h-12 mx-auto mb-3">
+            <div class="font-bold text-slate-700 mb-1">正计时</div>
+            <div class="text-xs text-slate-400">秒表计时，分段计次</div>
+          </div>
+          <!-- 抢答计分 -->
+          <div class="rounded-2xl p-5 text-center hover:-translate-y-1 hover:shadow-lg transition-all cursor-default border-t-[3px] border-red-400" style="background:#FEE2E2">
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f64b.svg" alt="🙋" class="w-12 h-12 mx-auto mb-3">
+            <div class="font-bold text-slate-700 mb-1">抢答计分</div>
+            <div class="text-xs text-slate-400">3-2-1-GO！全班小手高举</div>
+          </div>
+          <!-- 座位抽签 -->
+          <div class="rounded-2xl p-5 text-center hover:-translate-y-1 hover:shadow-lg transition-all cursor-default border-t-[3px] border-purple-400" style="background:#F5F3FF">
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1fa91.svg" alt="💺" class="w-12 h-12 mx-auto mb-3">
+            <div class="font-bold text-slate-700 mb-1">座位抽签</div>
+            <div class="text-xs text-slate-400">随机座位，支持锁定位置</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ========== 产品亮点 ========== -->
+  <section class="py-16 md:py-24 relative overflow-hidden" style="background:linear-gradient(135deg,#ECFDF5 0%,#E0F2FE 50%,#EDE9FE 100%)">
+    <div class="max-w-[1100px] mx-auto px-5">
+      <h2 class="fade-up font-display text-[clamp(24px,4vw,32px)] text-slate-800 text-center mb-10">
+        为什么老师们选择班宠乐园
+      </h2>
+      <div class="fade-up grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="flex items-center gap-3 rounded-2xl px-4 py-3.5 hover:shadow-md transition-shadow border-l-[3px] border-emerald-400" style="background:linear-gradient(135deg,#ecfdf5,#ffffff)">
+          <span class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center" style="background:#D1FAE5"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3ae.svg" alt="🎮" class="w-5 h-5"></span>
+          <div><div class="text-sm font-bold text-slate-700">游戏化激励</div><div class="text-xs text-slate-400">比小红花有趣 100 倍</div></div>
+        </div>
+        <div class="flex items-center gap-3 rounded-2xl px-4 py-3.5 hover:shadow-md transition-shadow border-l-[3px] border-amber-400" style="background:linear-gradient(135deg,#FFFBEB,#ffffff)">
+          <span class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center" style="background:#FEF3C7"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/26a1.svg" alt="⚡" class="w-5 h-5"></span>
+          <div><div class="text-sm font-bold text-slate-700">3 秒完成评分</div><div class="text-xs text-slate-400">告别 Excel，点一下就评分</div></div>
+        </div>
+        <div class="flex items-center gap-3 rounded-2xl px-4 py-3.5 hover:shadow-md transition-shadow border-l-[3px] border-indigo-400" style="background:linear-gradient(135deg,#EEF2FF,#ffffff)">
+          <span class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center" style="background:#E0E7FF"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4f1.svg" alt="📱" class="w-5 h-5"></span>
+          <div><div class="text-sm font-bold text-slate-700">全端适配</div><div class="text-xs text-slate-400">手机、平板、电脑都能用</div></div>
+        </div>
+        <div class="flex items-center gap-3 rounded-2xl px-4 py-3.5 hover:shadow-md transition-shadow border-l-[3px] border-pink-400" style="background:linear-gradient(135deg,#FDF2F8,#ffffff)">
+          <span class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center" style="background:#FDF2F8"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3a8.svg" alt="🎨" class="w-5 h-5"></span>
+          <div><div class="text-sm font-bold text-slate-700">5 套主题随心换</div><div class="text-xs text-slate-400">森林绿、星空蓝、樱花粉…</div></div>
+        </div>
+        <div class="flex items-center gap-3 rounded-2xl px-4 py-3.5 hover:shadow-md transition-shadow border-l-[3px] border-sky-400" style="background:linear-gradient(135deg,#F0F9FF,#ffffff)">
+          <span class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center" style="background:#E0F2FE"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f512.svg" alt="🔒" class="w-5 h-5"></span>
+          <div><div class="text-sm font-bold text-slate-700">数据安全</div><div class="text-xs text-slate-400">云端存储，换手机不丢数据</div></div>
+        </div>
+        <div class="flex items-center gap-3 rounded-2xl px-4 py-3.5 hover:shadow-md transition-shadow border-l-[3px] border-teal-400" style="background:linear-gradient(135deg,#F0FDFA,#ffffff)">
+          <span class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center" style="background:#CCFBF1"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4b0.svg" alt="💰" class="w-5 h-5"></span>
+          <div><div class="text-sm font-bold text-slate-700">买断制，无订阅费</div><div class="text-xs text-slate-400">一次购买，永久使用</div></div>
+        </div>
+        <div class="flex items-center gap-3 rounded-2xl px-4 py-3.5 hover:shadow-md transition-shadow border-l-[3px] border-orange-400" style="background:linear-gradient(135deg,#FFF7ED,#ffffff)">
+          <span class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center" style="background:#FFEDD5"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f465.svg" alt="👥" class="w-5 h-5"></span>
+          <div><div class="text-sm font-bold text-slate-700">支持分组</div><div class="text-xs text-slate-400">按小组管理，整组评分</div></div>
+        </div>
+        <div class="flex items-center gap-3 rounded-2xl px-4 py-3.5 hover:shadow-md transition-shadow border-l-[3px] border-rose-400" style="background:linear-gradient(135deg,#FFF1F2,#ffffff)">
+          <span class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center" style="background:#FFE4E6"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9f0.svg" alt="🧰" class="w-5 h-5"></span>
+          <div><div class="text-sm font-bold text-slate-700">6 个教学工具</div><div class="text-xs text-slate-400">点名、计时、转盘一应俱全</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 使用场景 ========== -->
+  <section id="scenes" class="py-16 md:py-24 relative overflow-hidden" style="background:linear-gradient(135deg,#FFFBF0 0%,#FFF5F5 50%,#FFF0FB 100%)">
+    <div class="max-w-[800px] mx-auto px-5">
+      <h2 class="fade-up font-display text-[clamp(24px,4vw,32px)] text-slate-800 text-center mb-12">
+        一天中的班宠乐园
+      </h2>
+
+      <div class="fade-up grid md:grid-cols-2 gap-4 md:gap-5">
+        <!-- 07:50 早读 -->
+        <div class="rounded-2xl p-5 shadow-sm border border-emerald-100 hover:shadow-md transition-shadow" style="background:linear-gradient(135deg,#ecfdf5,#ffffff 60%)">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="font-num font-bold text-white text-xs px-2.5 py-1 rounded-full" style="background:linear-gradient(135deg,#10B981,#059669)">07:50</span>
+            <span class="text-sm font-bold text-slate-700">早读时间</span>
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4d6.svg" alt="📖" class="w-4 h-4 ml-auto">
+          </div>
+          <p class="text-slate-500 text-sm leading-relaxed">
+            老师打开班宠乐园，一键给全班加"早读打卡 +1<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f356.svg" alt="🍖" class="w-3.5 h-3.5 inline-block align-text-bottom">"。30 秒搞定，比点名册快多了。
+          </p>
+        </div>
+
+        <!-- 10:30 课堂 -->
+        <div class="rounded-2xl p-5 shadow-sm border border-indigo-100 hover:shadow-md transition-shadow" style="background:linear-gradient(135deg,#EEF2FF,#ffffff 60%)">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="font-num font-bold text-white text-xs px-2.5 py-1 rounded-full" style="background:linear-gradient(135deg,#6366F1,#4F46E5)">10:30</span>
+            <span class="text-sm font-bold text-slate-700">课堂互动</span>
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/270b.svg" alt="✋" class="w-4 h-4 ml-auto">
+          </div>
+          <p class="text-slate-500 text-sm leading-relaxed">
+            用「随机点名」抽到小明回答问题，答对了！全班都期待自己的宠物被喂<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f356.svg" alt="🍖" class="w-3.5 h-3.5 inline-block align-text-bottom">。
+          </p>
+        </div>
+
+        <!-- 14:00 下午 -->
+        <div class="rounded-2xl p-5 shadow-sm border border-amber-100 hover:shadow-md transition-shadow" style="background:linear-gradient(135deg,#FFFBEB,#ffffff 60%)">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="font-num font-bold text-white text-xs px-2.5 py-1 rounded-full" style="background:linear-gradient(135deg,#F59E0B,#D97706)">14:00</span>
+            <span class="text-sm font-bold text-slate-700">下午比赛</span>
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f64b.svg" alt="🙋" class="w-4 h-4 ml-auto">
+          </div>
+          <p class="text-slate-500 text-sm leading-relaxed">
+            数学课打开「抢答计分器」，3-2-1-GO！教室里小手高举。赢的同学直接加分，宠物离升级又近一步。
+          </p>
+        </div>
+
+        <!-- 16:30 放学 -->
+        <div class="rounded-2xl p-5 shadow-sm border border-pink-100 hover:shadow-md transition-shadow" style="background:linear-gradient(135deg,#FDF2F8,#ffffff 60%)">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="font-num font-bold text-white text-xs px-2.5 py-1 rounded-full" style="background:linear-gradient(135deg,#EC4899,#DB2777)">16:30</span>
+            <span class="text-sm font-bold text-slate-700">放学前</span>
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3c6.svg" alt="🏆" class="w-4 h-4 ml-auto">
+          </div>
+          <p class="text-slate-500 text-sm leading-relaxed">
+            最佳小组登上「光荣榜」第一<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3c6.svg" alt="🏆" class="w-3.5 h-3.5 inline-block align-text-bottom">。小美的宠物满级了——全班鼓掌，她兑换了「免作业卡」<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4cb.svg" alt="📋" class="w-3.5 h-3.5 inline-block align-text-bottom">。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA 获取区域 ========== -->
+  <section id="cta" class="py-16 md:py-24 text-center relative overflow-hidden" style="background:linear-gradient(135deg,#059669 0%,#10B981 40%,#0D9488 100%)">
+    <!-- 装饰爪印 -->
+    <svg class="absolute top-8 left-8 w-16 h-16 text-white/10" viewBox="0 0 64 64" fill="currentColor"><ellipse cx="32" cy="42" rx="14" ry="12"/><ellipse cx="16" cy="24" rx="7" ry="9" transform="rotate(-15 16 24)"/><ellipse cx="48" cy="24" rx="7" ry="9" transform="rotate(15 48 24)"/><ellipse cx="22" cy="14" rx="6" ry="8" transform="rotate(-5 22 14)"/><ellipse cx="42" cy="14" rx="6" ry="8" transform="rotate(5 42 14)"/></svg>
+    <svg class="absolute bottom-8 right-8 w-20 h-20 text-white/[0.07]" viewBox="0 0 64 64" fill="currentColor"><ellipse cx="32" cy="42" rx="14" ry="12"/><ellipse cx="16" cy="24" rx="7" ry="9" transform="rotate(-15 16 24)"/><ellipse cx="48" cy="24" rx="7" ry="9" transform="rotate(15 48 24)"/><ellipse cx="22" cy="14" rx="6" ry="8" transform="rotate(-5 22 14)"/><ellipse cx="42" cy="14" rx="6" ry="8" transform="rotate(5 42 14)"/></svg>
+
+    <div class="relative z-10 max-w-[600px] mx-auto px-5">
+      <h2 class="fade-up font-display text-[clamp(28px,5vw,36px)] text-white mb-3">开始你的班宠冒险</h2>
+      <p class="fade-up text-white/80 text-base mb-8">一次购买，永久使用，无需下载</p>
+
+      <!-- 二维码卡片 -->
+      <div class="fade-up inline-block bg-white rounded-2xl p-6 shadow-2xl animate-breathe mb-6">
+        <!-- 二维码占位 -->
+        <div class="w-[180px] h-[180px] md:w-[200px] md:h-[200px] bg-slate-100 rounded-xl mx-auto mb-3 flex items-center justify-center text-slate-300">
+          <svg class="w-16 h-16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75zM6.75 16.5h.75v.75h-.75zM16.5 6.75h.75v.75h-.75zM13.5 13.5h.75v.75h-.75zM13.5 19.5h.75v.75h-.75zM19.5 13.5h.75v.75h-.75zM19.5 19.5h.75v.75h-.75zM16.5 16.5h.75v.75H16.5z"/></svg>
+        </div>
+        <p class="text-sm text-slate-400 mb-1">微信扫码 或 浏览器访问</p>
+        <a href="https://pet.learnstar.cn" class="text-emerald-600 font-bold font-num no-underline hover:underline">pet.learnstar.cn</a>
+      </div>
+
+      <p class="fade-up text-white/60 text-sm">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4a1.svg" alt="💡" class="w-4 h-4 inline-block align-text-bottom mr-1">
+        建议添加到手机主屏幕，像 App 一样使用
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== Footer ========== -->
+  <footer class="py-12 md:py-16" style="background:linear-gradient(180deg,#1E293B,#0F172A)">
+    <div class="max-w-[600px] mx-auto px-5 text-center">
+      <!-- Logo -->
+      <a href="#" class="inline-flex items-center gap-2.5 no-underline mb-5">
+        <svg class="w-7 h-7 text-emerald-400" style="transform:rotate(12deg)" viewBox="0 0 64 64" fill="currentColor"><ellipse cx="32" cy="42" rx="14" ry="12"/><ellipse cx="16" cy="24" rx="7" ry="9" transform="rotate(-15 16 24)"/><ellipse cx="48" cy="24" rx="7" ry="9" transform="rotate(15 48 24)"/><ellipse cx="22" cy="14" rx="6" ry="8" transform="rotate(-5 22 14)"/><ellipse cx="42" cy="14" rx="6" ry="8" transform="rotate(5 42 14)"/></svg>
+        <span class="font-display text-white text-xl">班宠乐园</span>
+      </a>
+      <!-- Slogan -->
+      <p class="text-slate-400 text-sm mb-6">让每一次成长都看得见</p>
+      <!-- 链接 -->
+      <div class="flex items-center justify-center gap-6 text-sm mb-8">
+        <a href="#features" class="text-slate-500 hover:text-emerald-400 transition-colors no-underline">功能介绍</a>
+        <span class="text-slate-700">·</span>
+        <a href="#scenes" class="text-slate-500 hover:text-emerald-400 transition-colors no-underline">使用场景</a>
+        <span class="text-slate-700">·</span>
+        <a href="#cta" class="text-slate-500 hover:text-emerald-400 transition-colors no-underline">立即体验</a>
+      </div>
+      <!-- 分隔线 + 版权 -->
+      <div class="border-t border-slate-700/60 pt-6">
+        <p class="text-slate-600 text-xs">&copy; 2024-2026 班宠乐园</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="js/main.js"></script>
+</body>
+</html>
