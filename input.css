@@ -111,6 +111,71 @@
   }
 }
 
+/* ========== 礼物卡片 - 纯展示（无交互） ========== */
+.card-gift {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-gift > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ========== 萌趣奶油质感 ========== */
+
+/* 画纸纹理叠层 - 给 section 加微噪点 */
+.bg-grain {
+  position: relative;
+  isolation: isolate;
+}
+
+.bg-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: overlay;
+}
+
+.bg-grain > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* 奶油卡片 - 棉花糖浮起质感 */
+.card-cream {
+  border: 2px solid rgba(255, 255, 255, 0.7) !important;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.03),
+    0 8px 24px var(--card-shadow, rgba(0,0,0,0.06)),
+    0 20px 60px var(--card-shadow, rgba(0,0,0,0.04)),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.02) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* 迷你奶油卡 - 工具卡/亮点卡 */
+.card-cream-sm {
+  border: 2px solid rgba(255, 255, 255, 0.65) !important;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.02),
+    0 6px 20px var(--card-shadow, rgba(0,0,0,0.06)),
+    0 14px 40px var(--card-shadow, rgba(0,0,0,0.03)),
+    inset 0 2px 3px rgba(255, 255, 255, 0.8),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.02) !important;
+}
+
+/* 标签胶囊奶油感 */
+.tag-cream {
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.06),
+    inset 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+
 /* ========== 减弱动画偏好 ========== */
 @media (prefers-reduced-motion: reduce) {
   .fade-up, .fade-in {
