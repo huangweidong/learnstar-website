@@ -74,9 +74,25 @@ function initSmoothScroll() {
   })
 }
 
+
+// ========== 移动端 CTA 跳转小红书 ==========
+function initMobileCTA() {
+  const isMobile = window.innerWidth < 768
+  if (!isMobile) return
+
+  document.querySelectorAll('.js-cta').forEach((btn) => {
+    const xhsUrl = btn.dataset.xhs
+    if (xhsUrl) {
+      btn.href = xhsUrl
+      btn.removeAttribute('data-xhs')
+    }
+  })
+}
+
 // ========== 初始化 ==========
 document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations()
   initNavbarScroll()
   initSmoothScroll()
+  initMobileCTA()
 })
