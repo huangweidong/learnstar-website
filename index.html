@@ -28,6 +28,7 @@
   <!-- Favicon -->
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="images/favicon.svg">
+  <link rel="preload" as="image" href="images/screenshots/hero.webp" type="image/webp">
   <link rel="stylesheet" href="dist/style.css">
   <!-- 结构化数据 - 软件产品 -->
   <script type="application/ld+json">
@@ -200,7 +201,7 @@
         <div class="max-w-[900px] mx-auto relative">
           <!-- 网页截图 -->
           <div class="w-full relative rounded-[8px] md:rounded-[12px] overflow-hidden" style="box-shadow:0 4px 8px rgba(0,0,0,0.04),0 16px 40px rgba(16,185,129,0.15),0 30px 80px rgba(16,185,129,0.10);border:2px solid rgba(255,255,255,0.7)">
-            <img src="images/screenshots/hero.jpg" alt="班宠乐园游戏化班级管理工具 - 宠物养成与课堂评分界面" class="w-full">
+            <img src="images/screenshots/hero.webp" alt="班宠乐园游戏化班级管理工具 - 宠物养成与课堂评分界面" class="w-full img-preview" width="2652" height="1866" fetchpriority="high" onclick="showPreview(this.src,this.alt)">
           </div>
           <!-- 手机框 - iPhone 风格 -->
           <div class="absolute right-[-12px] bottom-[-20px] w-[22%] md:bottom-[-30px] md:right-[-40px] md:w-[160px] z-30">
@@ -209,7 +210,7 @@
               <div class="bg-[#1a1a1a] rounded-t-[12px] md:rounded-t-[20px] flex justify-center pt-[4px] md:pt-[6px] pb-[2px] md:pb-[4px]">
                 <div class="w-[20px] md:w-[40px] h-[6px] md:h-[10px] bg-[#0a0a0a] rounded-full"></div>
               </div>
-              <img src="images/screenshots/shouji.png" alt="班宠乐园手机端界面 - 支持手机平板电脑多端使用" class="w-full rounded-[3px] md:rounded-[4px]">
+              <img src="images/screenshots/shouji.webp" alt="班宠乐园手机端界面 - 支持手机平板电脑多端使用" class="w-full rounded-[3px] md:rounded-[4px]" width="770" height="1680">
               <!-- 底部横条 -->
               <div class="bg-[#1a1a1a] rounded-b-[12px] md:rounded-b-[20px] flex justify-center py-[3px] md:py-[5px]">
                 <div class="w-[16px] md:w-[32px] h-[2px] md:h-[4px] bg-[#444] rounded-full"></div>
@@ -286,7 +287,7 @@
           <!-- 右：产品截图 -->
           <div class="fade-up w-full md:w-[58%]">
             <div class="rounded-xl overflow-hidden" style="box-shadow:0 4px 8px rgba(0,0,0,0.04),0 16px 40px rgba(16,185,129,0.12),0 30px 80px rgba(16,185,129,0.08);border:2px solid rgba(255,255,255,0.7)">
-              <img src="images/screenshots/chongwu.png" alt="班宠乐园50种虚拟萌宠 - 宠物养成激励学生" class="w-full">
+              <img src="images/screenshots/chongwu.webp" alt="班宠乐园50种虚拟萌宠 - 宠物养成激励学生" class="w-full img-preview" loading="lazy" decoding="async" width="1084" height="1140" onclick="showPreview(this.src,this.alt)">
             </div>
           </div>
         </div>
@@ -300,7 +301,7 @@
           <!-- 左：产品截图（移动端排第二） -->
           <div class="fade-up w-full md:w-[58%] order-2 md:order-1">
             <div class="rounded-xl overflow-hidden" style="box-shadow:0 4px 8px rgba(0,0,0,0.04),0 16px 40px rgba(245,158,11,0.12),0 30px 80px rgba(245,158,11,0.08);border:2px solid rgba(255,255,255,0.7)">
-              <img src="images/screenshots/pingfen.png" alt="班宠乐园课堂评分界面 - 20个加分项一键评分" class="w-full">
+              <img src="images/screenshots/pingfen.webp" alt="班宠乐园课堂评分界面 - 20个加分项一键评分" class="w-full img-preview" loading="lazy" decoding="async" width="1478" height="1302" onclick="showPreview(this.src,this.alt)">
             </div>
           </div>
           <!-- 右：文字（移动端排第一） -->
@@ -348,7 +349,7 @@
           <!-- 右：产品截图 -->
           <div class="fade-up w-full md:w-[58%]">
             <div class="rounded-xl overflow-hidden" style="box-shadow:0 4px 8px rgba(0,0,0,0.04),0 16px 40px rgba(244,63,94,0.12),0 30px 80px rgba(244,63,94,0.08);border:2px solid rgba(255,255,255,0.7)">
-              <img src="images/screenshots/duihuan.png" alt="班宠乐园礼物兑换界面 - 徽章兑换真实奖励" class="w-full">
+              <img src="images/screenshots/duihuan.webp" alt="班宠乐园礼物兑换界面 - 徽章兑换真实奖励" class="w-full img-preview" loading="lazy" decoding="async" width="2306" height="1736" onclick="showPreview(this.src,this.alt)">
             </div>
           </div>
         </div>
@@ -412,12 +413,6 @@
             </div>
             <div class="font-bold text-slate-700 mb-1">座位抽签</div>
             <div class="text-xs text-slate-500">随机座位，支持锁定位置</div>
-          </div>
-        </div>
-        <!-- 工具截图 -->
-        <div class="fade-up mt-10">
-          <div class="rounded-xl overflow-hidden max-w-[800px] mx-auto" style="box-shadow:0 4px 8px rgba(0,0,0,0.04),0 16px 40px rgba(139,92,246,0.12),0 30px 80px rgba(139,92,246,0.08);border:2px solid rgba(255,255,255,0.7)">
-            <img src="images/screenshots/zhuanpan.png" alt="班宠乐园幸运转盘 - 课堂互动游戏化教学工具" class="w-full">
           </div>
         </div>
       </div>
@@ -558,14 +553,14 @@
 
       <!-- 小红书二维码卡片 -->
       <div class="fade-up inline-block bg-white rounded-[24px] p-6 shadow-2xl animate-breathe mb-6 card-cream" style="--card-shadow:rgba(16,185,129,0.15)">
-        <img src="images/screenshots/erwei.jpg" alt="关注小红书橙老师 - 获取班宠乐园使用教程和班级管理干货" class="w-[260px] md:w-[300px] rounded-xl mx-auto">
+        <img src="images/screenshots/erwei.webp" alt="关注小红书橙老师 - 获取班宠乐园使用教程和班级管理干货" class="w-[260px] md:w-[300px] rounded-xl mx-auto" loading="lazy" decoding="async" width="987" height="1347">
       </div>
 
     </div>
   </section>
 
   <!-- ========== 移动端底部悬浮 CTA ========== -->
-  <a id="mobile-cta" href="https://xhslink.com/m/204FXEIEJYU" class="fixed bottom-0 left-0 right-0 z-50 md:hidden flex items-center justify-between no-underline" style="padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(135deg,rgba(236,253,245,0.95),rgba(255,255,255,0.95));backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1.5px solid rgba(16,185,129,0.2)">
+  <a id="mobile-cta" href="https://xhslink.com/m/59TwXprumr0" class="fixed bottom-0 left-0 right-0 z-50 md:hidden flex items-center justify-between no-underline" style="padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(135deg,rgba(236,253,245,0.95),rgba(255,255,255,0.95));backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1.5px solid rgba(16,185,129,0.2)">
     <div class="flex items-center gap-2.5">
       <img src="images/favicon.svg" alt="班宠乐园" class="w-10 h-10 rounded-xl" style="filter:drop-shadow(0 2px 4px rgba(245,158,11,0.3))">
       <div>
@@ -581,7 +576,12 @@
     <p class="text-white/50 text-xs">&copy; 2026 班宠乐园 All Rights Reserved</p>
   </footer>
 
+  <!-- 图片预览遮罩 -->
+  <div id="img-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.9);cursor:zoom-out;align-items:center;justify-content:center;touch-action:none;overscroll-behavior:none">
+    <img id="img-overlay-src" src="" alt="" style="max-width:92vw;max-height:92vh;border-radius:8px;object-fit:contain;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-user-drag:none">
+  </div>
+
   <!-- JS -->
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=4"></script>
 </body>
 </html>
