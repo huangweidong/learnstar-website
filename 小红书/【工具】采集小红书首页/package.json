@@ -1,0 +1,12 @@
+{
+  "name": "xhs-collector-puppeteer",
+  "version": "1.0.0",
+  "description": "小红书搜索结果采集工具 (Puppeteer版)",
+  "main": "collect.js",
+  "scripts": {
+    "start": "node collect.js"
+  },
+  "dependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}

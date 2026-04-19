@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "xhs-notify",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-03-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // 每 10 分钟检查 Windows 监控脚本心跳
+  "triggers": { "crons": ["*/10 * * * *"] },
+
+  // 自定义域名（workers.dev 国内访问不稳定）
+  "routes": [
+    { "pattern": "xhs-notify.learnbox.top", "custom_domain": true }
+  ],
+
+  // KV: 存储去重信息、心跳时间
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      "id": "901ba768593242209d5b786b79f99592"
+    }
+  ]
+
+  // Secrets (通过 wrangler secret put 设置):
+  // WECOM_WEBHOOK_KEY  - 企微群机器人 webhook key
+  // REPORT_SECRET      - Windows 脚本上报鉴权密钥
+}

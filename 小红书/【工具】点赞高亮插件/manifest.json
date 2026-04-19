@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "小红书点赞高亮",
+  "description": "高亮显示点赞数超过指定阈值的笔记，快速找到爆款内容",
+  "version": "1.0.0",
+  "content_scripts": [
+    {
+      "matches": ["*://*.xiaohongshu.com/*", "*://*.xhslink.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {},
+  "permissions": []
+}
